@@ -5,6 +5,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZonedDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -21,7 +22,7 @@ public class Event {
 
 	private EventType eventType;
 
-	private LocalDateTime dateTime;
+	private ZonedDateTime dateTime;
 
 	@OneToMany(mappedBy = "event")
 	private Set<Ticket> tickets;
@@ -34,21 +35,43 @@ public class Event {
 
 	private Status status;
 
-	public Event(String name, EventType eventType, LocalDateTime dateTime, String venue, String country, String region, Status status) {
+	public Event setName(String name) {
 		this.name = name;
+		return this;
+	}
+
+	public Event setEventType(EventType eventType) {
 		this.eventType = eventType;
+		return this;
+	}
+
+	public Event setDateTime(ZonedDateTime dateTime) {
 		this.dateTime = dateTime;
+		return this;
+	}
+
+	public Event setTickets(Set<Ticket> tickets) {
+		this.tickets = tickets;
+		return this;
+	}
+
+	public Event setVenue(String venue) {
 		this.venue = venue;
+		return this;
+	}
+
+	public Event setCountry(String country) {
 		this.country = country;
+		return this;
+	}
+
+	public Event setRegion(String region) {
 		this.region = region;
+		return this;
+	}
+
+	public Event setStatus(Status status) {
 		this.status = status;
-	}
-
-	private Event() {
-	}
-
-	private Event setId(Long id) {
-		this.id = id;
 		return this;
 	}
 }

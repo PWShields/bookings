@@ -12,7 +12,7 @@ public class Ticket {
 	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	private Long id;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "event_id", nullable = false)
 	private Event event;
 
@@ -20,64 +20,35 @@ public class Ticket {
 
 	private TicketType ticketType;
 
-	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@ManyToOne(fetch = FetchType.LAZY, optional = true)
 	@JoinColumn(name = "purchaser_id")
 	private Purchaser purchaser;
 
 	private String customerName;
 
-	public Ticket(Event event, Status status, TicketType ticketType, Purchaser purchaser, String customerName) {
+
+	public Ticket setEvent(Event event) {
 		this.event = event;
+		return this;
+	}
+
+	public Ticket setStatus(Status status) {
 		this.status = status;
+		return this;
+	}
+
+	public Ticket setTicketType(TicketType ticketType) {
 		this.ticketType = ticketType;
+		return this;
+	}
+
+	public Ticket setPurchaser(Purchaser purchaser) {
 		this.purchaser = purchaser;
+		return this;
+	}
+
+	public Ticket setCustomerName(String customerName) {
 		this.customerName = customerName;
-	}
-
-	private Ticket() {
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public Event getEvent() {
-		return event;
-	}
-
-	public void setEvent(Event event) {
-		this.event = event;
-	}
-
-	public Status getStatus() {
-		return status;
-	}
-
-	public void setStatus(Status status) {
-		this.status = status;
-	}
-
-	public TicketType getTicketType() {
-		return ticketType;
-	}
-
-	public void setTicketType(TicketType ticketType) {
-		this.ticketType = ticketType;
-	}
-
-	public Purchaser getPurchaser() {
-		return purchaser;
-	}
-
-	public void setPurchaser(Purchaser purchaser) {
-		this.purchaser = purchaser;
-	}
-
-	public String getCustomerName() {
-		return customerName;
-	}
-
-	public void setCustomerName(String customerName) {
-		this.customerName = customerName;
+		return this;
 	}
 }
