@@ -1,5 +1,6 @@
 package com.puffinpowered.bookings.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
@@ -73,5 +74,19 @@ public class Event {
 	public Event setStatus(Status status) {
 		this.status = status;
 		return this;
+	}
+
+	@Override
+	public String toString() {
+		return "Event{" +
+				"id=" + id +
+				", name='" + name + '\'' +
+				", eventType=" + eventType +
+				", dateTime=" + dateTime +
+				", venue='" + venue + '\'' +
+				", country='" + country + '\'' +
+				", region='" + region + '\'' +
+				", status=" + status +
+				'}';
 	}
 }
