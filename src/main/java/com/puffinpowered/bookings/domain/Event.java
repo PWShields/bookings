@@ -1,104 +1,54 @@
 package com.puffinpowered.bookings.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
+@Data
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Event {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
 
-    private String name;
+	private String name;
 
-    private EventType eventType;
+	private EventType eventType;
 
-    private LocalDateTime dateTime;
+	private LocalDateTime dateTime;
 
-    private String venue;
+	@OneToMany(mappedBy = "event")
+	private Set<Ticket> tickets;
 
-    private String country;
+	private String venue;
 
-    private String region;
+	private String country;
 
-    private Status status;
+	private String region;
 
-    public Event(String name, EventType eventType, LocalDateTime dateTime, String venue, String country, String region, Status status) {
-        this.name = name;
-        this.eventType = eventType;
-        this.dateTime = dateTime;
-        this.venue = venue;
-        this.country = country;
-        this.region = region;
-        this.status = status;
-    }
+	private Status status;
 
-    private Event() {
-    }
+	public Event(String name, EventType eventType, LocalDateTime dateTime, String venue, String country, String region, Status status) {
+		this.name = name;
+		this.eventType = eventType;
+		this.dateTime = dateTime;
+		this.venue = venue;
+		this.country = country;
+		this.region = region;
+		this.status = status;
+	}
 
-    public Long getId() {
-        return id;
-    }
+	private Event() {
+	}
 
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public LocalDateTime getDateTime() {
-        return dateTime;
-    }
-
-    public void setDateTime(LocalDateTime dateTime) {
-        this.dateTime = dateTime;
-    }
-
-    public String getVenue() {
-        return venue;
-    }
-
-    public void setVenue(String venue) {
-        this.venue = venue;
-    }
-
-    public String getCountry() {
-        return country;
-    }
-
-    public void setCountry(String country) {
-        this.country = country;
-    }
-
-    public String getRegion() {
-        return region;
-    }
-
-    public void setRegion(String region) {
-        this.region = region;
-    }
-
-    public EventType getEventType() {
-        return eventType;
-    }
-
-    public void setEventType(EventType eventType) {
-        this.eventType = eventType;
-    }
-
-    public Status getStatus() {
-        return status;
-    }
-
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	private Event setId(Long id) {
+		this.id = id;
+		return this;
+	}
 }

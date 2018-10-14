@@ -2,80 +2,82 @@ package com.puffinpowered.bookings.domain;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 @Entity
-@JsonIgnoreProperties(ignoreUnknown=true)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class Ticket {
 
-    @Id
-    @GeneratedValue
-    private Long id;
+	@Id
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	private Long id;
 
-    private Event event;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "event_id", nullable = false)
+	private Event event;
 
-    private Status status;
+	private Status status;
 
-    private TicketType ticketType;
+	private TicketType ticketType;
 
-    private Purchaser purchaser;
+	@ManyToOne(fetch = FetchType.LAZY, optional = false)
+	@JoinColumn(name = "purchaser_id")
+	private Purchaser purchaser;
 
-    private String customerName;
+	private String customerName;
 
-    public Ticket(Event event, Status status, TicketType ticketType, Purchaser purchaser, String customerName) {
-        this.event = event;
-        this.status = status;
-        this.ticketType = ticketType;
-        this.purchaser = purchaser;
-        this.customerName = customerName;
-    }
+	public Ticket(Event event, Status status, TicketType ticketType, Purchaser purchaser, String customerName) {
+		this.event = event;
+		this.status = status;
+		this.ticketType = ticketType;
+		this.purchaser = purchaser;
+		this.customerName = customerName;
+	}
 
-    private Ticket() {
-    }
+	private Ticket() {
+	}
 
-    public Long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public Event getEvent() {
-        return event;
-    }
+	public Event getEvent() {
+		return event;
+	}
 
-    public Status getStatus() {
-        return status;
-    }
+	public void setEvent(Event event) {
+		this.event = event;
+	}
 
-    public TicketType getTicketType() {
-        return ticketType;
-    }
+	public Status getStatus() {
+		return status;
+	}
 
-    public Purchaser getPurchaser() {
-        return purchaser;
-    }
+	public void setStatus(Status status) {
+		this.status = status;
+	}
 
-    public String getCustomerName() {
-        return customerName;
-    }
+	public TicketType getTicketType() {
+		return ticketType;
+	}
 
-    public void setEvent(Event event) {
-        this.event = event;
-    }
+	public void setTicketType(TicketType ticketType) {
+		this.ticketType = ticketType;
+	}
 
-    public void setStatus(Status status) {
-        this.status = status;
-    }
+	public Purchaser getPurchaser() {
+		return purchaser;
+	}
 
-    public void setTicketType(TicketType ticketType) {
-        this.ticketType = ticketType;
-    }
+	public void setPurchaser(Purchaser purchaser) {
+		this.purchaser = purchaser;
+	}
 
-    public void setPurchaser(Purchaser purchaser) {
-        this.purchaser = purchaser;
-    }
+	public String getCustomerName() {
+		return customerName;
+	}
 
-    public void setCustomerName(String customerName) {
-        this.customerName = customerName;
-    }
+	public void setCustomerName(String customerName) {
+		this.customerName = customerName;
+	}
 }
